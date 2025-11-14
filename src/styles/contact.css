@@ -1,0 +1,103 @@
+.contact-container {
+  max-width: 600px;
+  margin: 3rem auto;
+  padding: 2rem;
+  border-radius: 10px;
+  background: #1a1a1a; /* oscuro para coincidir con tu theme */
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.contact-container h2 {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  color: #f0f0f0;
+}
+
+.contact-intro {
+  margin-bottom: 1.5rem;
+  color: #ccc;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column; /* importante: todo en columna */
+  gap: 1rem; /* espacio entre cada label/input/textarea */
+}
+
+.contact-form label {
+  font-weight: bold;
+  margin-bottom: 0.3rem;
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 0.8rem;
+  border: 1px solid #555;
+  border-radius: 6px;
+  font-size: 1rem;
+  background: #222;
+  color: #fff;
+  outline: none;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: #0078d7;
+}
+
+.btn-enviar {
+  background: #0078d7;
+  color: white;
+  padding: 0.9rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.btn-enviar:hover {
+  background: #005fa3;
+}
+
+.status-message {
+  font-weight: bold;
+}
+
+.status-message.success {
+  color: #0f0;
+}
+
+.status-message.error {
+  color: #f00;
+}
+
+.status-message.loading {
+  color: #ccc;
+} 
+
+.contact-form .error-text {
+  color: #ff4d4d;
+  font-size: 0.9rem;
+  margin-top: 4px;
+  margin-bottom: 10px;
+  font-weight: 500;
+  transition: opacity 0.3s ease;
+  opacity: 0.95;
+}
+
+/* 🔴 Mensajes de error debajo de cada campo */
+.contact-form .error-text {
+  color: #ff4d4d !important;
+  font-size: 0.9rem;
+  margin-top: 4px;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+/* 🔴 Borde rojo en campos con error */
+.contact-form input.error,
+.contact-form textarea.error {
+  border: 1px solid #ff4d4d !important;
+}

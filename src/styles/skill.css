@@ -1,0 +1,21 @@
+.skills {
+  background-color: #000;
+    border-radius: .8rem;
+    padding:1rem;
+   
+}
+.skill-card {
+  background: #e4dfdf;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  font-weight: 600;
+  transition: transform 0.2s ease-in-out;
+}
+.skill-card:hover {
+  transform: translateY(-5px);
+  color: #00d9ff;
+} 
+
+.skill_color{
+  color:#000
+}
