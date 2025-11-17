@@ -17,7 +17,7 @@ export const PROJECTS = [
       "Aplicación completa con panel de administrador, carrito, pasarela de pagos y gestión de usuarios.",
     tech: ["JavaScript", "Node", "Express", "Supabase"],
     image: "/assets/projects/ecommerce.jpg",
-    repo: "https://github.com/ramirosicilia/Ecommerce-desarrolladores",
+    repo: "https://relaxed-valkyrie-f0d847.netlify.app/",
     repo_backend: "https://github.com/ramirosicilia/Ecommerce-backend-production",
     repo_payment: "https://github.com/ramirosicilia/Ecommerce-payment"
   },

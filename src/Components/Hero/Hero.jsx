@@ -7,7 +7,7 @@ export default function Hero() {
   const handleDownload = () => {
    
     // ✅ Inicia la descarga del CV (misma lógica que usarías en Compra)
-    const urlPublica = "CV_Ramiro_Jose_Sicilia_Programador_Jr1";
+    const urlPublica = "CV_Ramiro_Jose_Sicilia_Programador_Jr1.pdf";
 
     if (!urlPublica) {
       console.warn("⚠️ No se encontró la URL del archivo.");
@@ -18,7 +18,7 @@ export default function Hero() {
     console.log("📥 Descargando CV desde:", urlPublica);
     const link = document.createElement("a");
     link.href = urlPublica;
-    link.download = "CV_Ramiro_Jose_Sicilia_Programador_Jr1";
+    link.download = "CV_Ramiro_Jose_Sicilia_Programador_Jr1.pdf";
     link.target = "_blank";
     document.body.appendChild(link);
     link.click();

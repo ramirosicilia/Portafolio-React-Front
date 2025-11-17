@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import "../styles/Contact.css";
-import { fetchData } from "../Helpers/fetchData"; 
-import { validateForm } from "../Helpers/validateForm"; // 👈 importá tu función de validación
 
-export default function ContactPage() { 
+import { validateForm } from "../Helpers/validateForm"; 
 
-    const  URL_FRONT= import.meta.env.FRONT_URL;
+export default function ContactPage() {
+
+    const  URL_BACK= import.meta.env.VITE_BACK_URL;
+
   const [formData, setFormData] = useState({
     nombre: "",
     email: "",
@@ -20,38 +21,46 @@ export default function ContactPage() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault(); // ⛔ Evita redirección a Formspree
 
-    const validationErrors = validateForm(formData);
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
-      setStatus({
-        type: "error",
-        message: "Por favor corregí los errores antes de enviar.",
-      });
-      return;
-    }
+  const validationErrors = validateForm(formData);
+  if (Object.keys(validationErrors).length > 0) {
+    setErrors(validationErrors);
+    setStatus({
+      type: "error",
+      message: "Por favor corregí los errores antes de enviar.",
+    });
+    return;
+  }
 
-    setErrors({});
-    setStatus({ type: "loading", message: "Enviando mensaje..." });
+  setErrors({});
+  setStatus({ type: "loading", message: "Enviando mensaje..." });
 
-    const url = `${URL_FRONT}/send-email`;
-
-    const result = await fetchData(url, {
+  try {
+    const response = await fetch(URL_BACK, {
       method: "POST",
-      body: JSON.stringify(formData),
+      headers: { Accept: "application/json" },
+      body: new FormData(e.target),
     });
 
-    if (result.success) {
-      setStatus({ type: "success", message: "¡Mensaje enviado con éxito!" });
-      setFormData({ nombre: "", email: "", mensaje: "" });
-    } else {
-      setStatus({
-        type: "error",
-        message: "Error al enviar el mensaje. Intentalo de nuevo.",
+    if (response.ok) {
+      setStatus({ type: "success", message: "Mensaje enviado correctamente!" });
+
+      // 🔥 Limpia inputs controlados
+      setFormData({
+        nombre: "",
+        email: "",
+        mensaje: "",
       });
+    } else {
+      setStatus({ type: "error", message: "Hubo un problema al enviar." });
     }
-  };
+  } catch (error) {
+    console.error(error);
+    setStatus({ type: "error", message: "Error al enviar." });
+  }
+};
+
 
   return (
     <div className="contact-container">
@@ -61,7 +70,13 @@ export default function ContactPage() {
         siguiente formulario:
       </p>
 
-      <form className="contact-form" onSubmit={handleSubmit}>
+      {/* 🔥 ESTA ES LA CLAVE */}
+      <form
+        className="contact-form"
+      
+        method="POST"
+        onSubmit={handleSubmit}
+      >
         <label htmlFor="nombre">Nombre</label>
         <input
           type="text"
@@ -72,9 +87,7 @@ export default function ContactPage() {
           placeholder="Tu nombre"
           className={errors.nombre ? "error" : ""}
         />
-        {errors.nombre && (
-          <p style={{ color: "red" }}>{errors.nombre}</p>
-        )}
+        {errors.nombre && <p style={{ color: "red" }}>{errors.nombre}</p>}
 
         <label htmlFor="email">Correo electrónico</label>
         <input
@@ -86,9 +99,7 @@ export default function ContactPage() {
           placeholder="tuemail@ejemplo.com"
           className={errors.email ? "error" : ""}
         />
-        {errors.email && (
-          <p style={{ color: "red" }}>{errors.email}</p>
-        )}
+        {errors.email && <p style={{ color: "red" }}>{errors.email}</p>}
 
         <label htmlFor="mensaje">Mensaje</label>
         <textarea
@@ -100,9 +111,7 @@ export default function ContactPage() {
           placeholder="Escribí tu mensaje..."
           className={errors.mensaje ? "error" : ""}
         ></textarea>
-        {errors.mensaje && (
-          <p style={{ color: "red" }}>{errors.mensaje}</p>
-        )}
+        {errors.mensaje && <p style={{ color: "red" }}>{errors.mensaje}</p>}
 
         <button
           type="submit"
